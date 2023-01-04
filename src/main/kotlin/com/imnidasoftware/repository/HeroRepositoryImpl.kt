@@ -3,7 +3,7 @@ package com.imnidasoftware.repository
 import com.imnidasoftware.models.ApiResponse
 import com.imnidasoftware.models.Hero
 
-class HeroRepositoryImpl: HeroRepository {
+class HeroRepositoryImpl : HeroRepository {
     override val heroes: Map<Int, List<Hero>> by lazy {
         mapOf(
             1 to page1,
@@ -404,18 +404,29 @@ class HeroRepositoryImpl: HeroRepository {
     }
 
     private fun Int.calculateNextPage(): Int? =
-        when(this) {
+        when (this) {
             in 1..4 -> plus(1)
             else -> null
         }
 
     private fun Int.calculatePreviousPage(): Int? =
-        when(this) {
+        when (this) {
             in 2..5 -> minus(1)
             else -> null
         }
 
-    override suspend fun searchHeroes(name: String): ApiResponse {
-        TODO("Not yet implemented")
+    override suspend fun searchHeroes(name: String?): ApiResponse {
+        return ApiResponse(
+            success = true,
+            message = "Ok",
+            heroes = findHeroes(name)
+        )
     }
+
+    private fun findHeroes(name: String?): List<Hero> =
+        name?.run {
+            heroes.values.flatten().filter {
+                it.name.lowercase().contains(name.lowercase())
+            }
+        } ?: emptyList()
 }

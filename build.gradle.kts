@@ -40,4 +40,7 @@ dependencies {
 
     //Default Headers plugin
     implementation("io.ktor:ktor-server-default-headers:$ktorVersion")
+
+    //Status pages plugin
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
 }

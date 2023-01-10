@@ -399,7 +399,8 @@ class HeroRepositoryImpl : HeroRepository {
             message = "ok",
             prevPage = page.calculatePreviousPage(),
             nextPage = page.calculateNextPage(),
-            heroes = requireNotNull(heroes[page])
+            heroes = requireNotNull(heroes[page]),
+            lastUpdated = System.currentTimeMillis()
         )
     }
 
